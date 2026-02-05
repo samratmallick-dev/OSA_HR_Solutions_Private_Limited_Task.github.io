@@ -11,4 +11,5 @@ export default defineConfig({
                   "@": path.resolve(__dirname, "./src"),
             },
       },
+      base: '/OSA_HR_Solutions_Private_Limited_Task/'
 })
