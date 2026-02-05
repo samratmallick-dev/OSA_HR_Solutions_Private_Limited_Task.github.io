@@ -1,22 +1,16 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { User, LogOut, Moon, Sun } from 'lucide-react';
+import { User, LogOut } from 'lucide-react';
+import { ThemeToggle } from './toggle-theme';
 
 const Header = () => {
       const navigate = useNavigate();
-      const [isDarkMode, setIsDarkMode] = React.useState(false);
-      
       const user = JSON.parse(localStorage.getItem('user') || '{}');
 
       const handleLogout = () => {
             localStorage.removeItem('isAuthenticated');
             localStorage.removeItem('user');
             navigate('/auth/login');
-      };
-
-      const toggleDarkMode = () => {
-            setIsDarkMode(!isDarkMode);
-            document.documentElement.classList.toggle('dark');
       };
 
       return (
@@ -30,16 +24,7 @@ const Header = () => {
                               </div>
                               
                               <div className="flex items-center space-x-4">
-                                    <button
-                                          onClick={toggleDarkMode}
-                                          className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                                    >
-                                          {isDarkMode ? (
-                                                <Sun className="w-5 h-5 text-yellow-500" />
-                                          ) : (
-                                                <Moon className="w-5 h-5 text-gray-600" />
-                                          )}
-                                    </button>
+                                    <ThemeToggle />
                                     
                                     <div className="flex items-center space-x-3">
                                           <div className="flex items-center space-x-2">

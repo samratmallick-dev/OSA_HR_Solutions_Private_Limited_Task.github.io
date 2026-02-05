@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
+import { Eye, EyeOff } from 'lucide-react';
 
 const CommonForm = ({
       formControls,
@@ -13,6 +14,14 @@ const CommonForm = ({
       errors = {},
       showPasswordStrength = false
 }) => {
+      const [showPasswords, setShowPasswords] = useState({});
+
+      const togglePasswordVisibility = (fieldName) => {
+            setShowPasswords(prev => ({
+                  ...prev,
+                  [fieldName]: !prev[fieldName]
+            }));
+      };
 
       const renderInputsByComponentsType = (getControlItems) => {
             let element = null;
@@ -22,9 +31,9 @@ const CommonForm = ({
             switch (getControlItems.componentType) {
                   case 'input':
                         element = (
-                              <div>
+                              <div className="relative">
                                     <Input
-                                          type={getControlItems.type}
+                                          type={getControlItems.type === 'password' && showPasswords[getControlItems.name] ? 'text' : getControlItems.type}
                                           name={getControlItems.name}
                                           placeholder={getControlItems.placeholder}
                                           id={getControlItems.name}
@@ -32,8 +41,21 @@ const CommonForm = ({
                                           onChange={(e) => setFormData({
                                                 ...formData, [getControlItems.name]: e.target.value
                                           })}
-                                          className={error ? 'border-red-500' : ''}
+                                          className={error ? 'border-red-500 pr-10' : 'pr-10'}
                                     />
+                                    {getControlItems.type === 'password' && (
+                                          <button
+                                                type="button"
+                                                onClick={() => togglePasswordVisibility(getControlItems.name)}
+                                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                                          >
+                                                {showPasswords[getControlItems.name] ? (
+                                                      <EyeOff className="w-4 h-4" />
+                                                ) : (
+                                                      <Eye className="w-4 h-4" />
+                                                )}
+                                          </button>
+                                    )}
                                     {error && (
                                           <p className="text-red-500 text-sm mt-1">{error}</p>
                                     )}
@@ -45,9 +67,9 @@ const CommonForm = ({
                         break;
                   default:
                         element = (
-                              <div>
+                              <div className="relative">
                                     <Input
-                                          type={getControlItems.type}
+                                          type={getControlItems.type === 'password' && showPasswords[getControlItems.name] ? 'text' : getControlItems.type}
                                           name={getControlItems.name}
                                           placeholder={getControlItems.placeholder}
                                           id={getControlItems.name}
@@ -55,8 +77,21 @@ const CommonForm = ({
                                           onChange={(e) => setFormData({
                                                 ...formData, [getControlItems.name]: e.target.value
                                           })}
-                                          className={error ? 'border-red-500' : ''}
+                                          className={error ? 'border-red-500 pr-10' : 'pr-10'}
                                     />
+                                    {getControlItems.type === 'password' && (
+                                          <button
+                                                type="button"
+                                                onClick={() => togglePasswordVisibility(getControlItems.name)}
+                                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                                          >
+                                                {showPasswords[getControlItems.name] ? (
+                                                      <EyeOff className="w-4 h-4" />
+                                                ) : (
+                                                      <Eye className="w-4 h-4" />
+                                                )}
+                                          </button>
+                                    )}
                                     {error && (
                                           <p className="text-red-500 text-sm mt-1">{error}</p>
                                     )}

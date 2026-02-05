@@ -7,11 +7,11 @@ const Home = () => {
       const user = JSON.parse(localStorage.getItem('user') || '{}');
 
       return (
-            <div className="w-full h-full flex flex-col items-center justify-center">
+            <div className="w-full flex flex-col items-center justify-center">
                   <h1 className="text-3xl font-bold mb-2">
                         Welcome back, {user.name || 'User'}! 👋
                   </h1>
-                  <p className="">
+                  <p>
                         Here's what's happening with your account today.
                   </p>
             </div>

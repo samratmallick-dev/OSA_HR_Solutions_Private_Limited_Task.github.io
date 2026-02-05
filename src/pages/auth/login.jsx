@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import CommonForm from '../../components/common/form';
 import { loginFormControls } from '../../config/form-index';
 import { validateForm } from '../../utils/validation';
-import { Lock, Eye, EyeOff } from 'lucide-react';
+import { Lock } from 'lucide-react';
 
 const Login = () => {
       const [formData, setFormData] = useState({
@@ -12,7 +12,6 @@ const Login = () => {
             rememberMe: false
       });
       const [errors, setErrors] = useState({});
-      const [showPassword, setShowPassword] = useState(false);
       const navigate = useNavigate();
 
       const handleSubmit = (e) => {
